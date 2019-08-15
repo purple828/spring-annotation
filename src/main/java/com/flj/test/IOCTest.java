@@ -1,5 +1,6 @@
 package com.flj.test;
 
+import com.flj.bean.Blue;
 import com.flj.bean.Person;
 import com.flj.config.MainConfig;
 import com.flj.config.MainConfig2;
@@ -16,6 +17,32 @@ import java.util.Map;
  * @date 2019-08-14 16:47
  **/
 public class IOCTest {
+
+    private final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+
+    @Test
+    public void testImport(){
+        printBeans(applicationContext);
+        Blue bean = applicationContext.getBean(Blue.class);
+        System.out.println(bean);
+
+        //工厂Bean获取的是调用getObject创建的对象
+        Object colorFactoryBean = applicationContext.getBean("colorFactoryBean");
+        Object colorFactoryBean1 = applicationContext.getBean("colorFactoryBean");
+        Object colorFactoryBean2 = applicationContext.getBean("&colorFactoryBean");
+        System.out.println("bean 的类型 ："+colorFactoryBean.getClass());
+        System.out.println(colorFactoryBean == colorFactoryBean1);
+        System.out.println("bean2 的类型 ："+colorFactoryBean2.getClass());
+
+    }
+
+    private void printBeans(ApplicationContext applicationContext){
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String str : beanDefinitionNames){
+            System.out.println(str);
+        }
+    }
+
 
     @SuppressWarnings("resource")
     @Test
