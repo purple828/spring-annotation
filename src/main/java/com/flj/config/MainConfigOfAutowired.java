@@ -1,5 +1,7 @@
 package com.flj.config;
 
+import com.flj.bean.Car;
+import com.flj.bean.Color;
 import com.flj.dao.BookDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,12 +35,22 @@ import org.springframework.context.annotation.Primary;
  *
  *              AutowiredAnnotationBeanPostProcessor:解析完成自动装配功能
  *
+ *              3) @Autowired:可以用在构造器、参数、方法、属性上，都是从容器中获取参数组件的值
+ *                  1. 标注在方法位置  @Bean+方法参数，参数从容器中获取，默认不写@Autowired效果都是一样的，都能自动装配
+ *                  2. 标注在构造器上，如果组件只有一个有参构造器，这个有参构造器的@Autowired可以省略，参数位置的组件还是可以自动从容器中获取
+ *                  3. 放在参数位置
+ *
+ *              4) 自定义组件想要使用Spring容器底层的一些组件（ApplicationContext,BeanFactory等），
+ *              只需自定义组件实现***Aware接口，在创建对象的时候，会调用接口规定的方法注入相关组件：Aware
+ *               把Spring底层一些组件注入到自定义的Bean中
+ *               ***Aware:功能使用 ***Processor实现
+ *                  ApplicationContextAware ===> ApplicationContextAwareProcessor
  *
  *
  * @date 2019-08-15 17:51
  **/
 @Configuration
-@ComponentScan({"com.flj.service","com.flj.dao","com.flj.controller"})
+@ComponentScan({"com.flj.service","com.flj.dao","com.flj.controller","com.flj.bean"})
 public class MainConfigOfAutowired {
 
     @Primary
@@ -47,6 +59,19 @@ public class MainConfigOfAutowired {
         BookDao bookDao = new BookDao();
         bookDao.setLable("2");
         return bookDao;
+    }
+
+    /**
+     * @Bean标注的方法创建对象的时候方法参数值从容器中获取
+     * @param car
+     * @return
+     */
+    @Bean
+    public Color color(Car car){
+        Color color = new Color();
+        color.setCar(car);
+        return color;
+
     }
 
 }

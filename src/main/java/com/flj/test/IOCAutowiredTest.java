@@ -1,5 +1,8 @@
 package com.flj.test;
 
+import com.flj.bean.Boss;
+import com.flj.bean.Car;
+import com.flj.bean.Color;
 import com.flj.bean.Person;
 import com.flj.config.MainConfigOfAutowired;
 import com.flj.config.MainConfigOfPropertyValues;
@@ -25,18 +28,22 @@ public class IOCAutowiredTest {
 //        BookDao bean = applicationContext.getBean(BookDao.class);
 //        System.out.println(bean);
 
+        Boss bean = applicationContext.getBean(Boss.class);
+        System.out.println(bean);
+
+        Car bean1 = applicationContext.getBean(Car.class);
+        System.out.println(bean1);
+
+        Color bean2 = applicationContext.getBean(Color.class);
+        System.out.println(bean2);
+        Car bean3 = applicationContext.getBean(Car.class);
+        System.out.println(bean3);
+
         applicationContext.close();
 
 
     }
 
-
-    private void printBeans(ApplicationContext applicationContext){
-        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-        for (String str : beanDefinitionNames){
-            System.out.println(str);
-        }
-    }
 
 
 }
