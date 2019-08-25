@@ -5,6 +5,9 @@ import com.flj.config.MainConfigOfAop;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author flj
  * @Description:
@@ -22,6 +25,21 @@ public class IOCAopTest {
         mathCalculator.div(1,0);
 
         applicationContext.close();
+
+
+    }
+
+
+    @Test
+    public void test02(){
+
+        Map<String,String> map = new HashMap<String, String>();
+
+        map.put("123","www.baibu.com");
+        map.put("456","hello");
+
+        System.out.println(map);
+
 
 
     }
