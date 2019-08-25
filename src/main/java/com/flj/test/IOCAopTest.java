@@ -16,9 +16,10 @@ public class IOCAopTest {
     public void test01(){
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfigOfAop.class);
 
-        //测试时不能自己创建对象,切面只针对spring管理的对象
-        MathCalculator bean = applicationContext.getBean(MathCalculator.class);
-        bean.div(1,0);
+        //测试时不能自己创建对象,切面只针对spring管理的对象,返回的MathCalculator对象是经过cglib增强后的代理对象，这个代理对象里面保存了详细信息（比如：增强器、目标对象等）
+        MathCalculator mathCalculator = applicationContext.getBean(MathCalculator.class);
+
+        mathCalculator.div(1,0);
 
         applicationContext.close();
 
